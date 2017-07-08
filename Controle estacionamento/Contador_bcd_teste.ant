@@ -1,0 +1,121 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 1995-2003 Xilinx, Inc.
+// All Right Reserved.
+////////////////////////////////////////////////////////////////////////////////
+//   ____  ____ 
+//  /   /\/   / 
+// /___/  \  /    Vendor: Xilinx 
+// \   \   \/     Version : 8.2i
+//  \   \         Application : ISE
+//  /   /         Filename : Contador_bcd_teste.ant
+// /___/   /\     Timestamp : Wed Dec 07 11:30:21 2011
+// \   \  /  \ 
+//  \___\/\___\ 
+//
+//Command: 
+//Design Name: Contador_bcd_teste
+//Device: Xilinx
+//
+`timescale 1ns/1ps
+
+module Contador_bcd_teste;
+    reg somar = 1'b0;
+    reg decrem = 1'b0;
+    reg clk = 1'b0;
+    reg reset = 1'b0;
+    wire [3:0] unid;
+    wire [3:0] cent;
+    wire [3:0] dez;
+    wire [3:0] milhar;
+
+    parameter PERIOD = 200;
+    parameter real DUTY_CYCLE = 0.5;
+    parameter OFFSET = 0;
+
+    initial    // Clock process for clk
+    begin
+        #OFFSET;
+        forever
+        begin
+            clk = 1'b0;
+            #(PERIOD-(PERIOD*DUTY_CYCLE)) clk = 1'b1;
+            #(PERIOD*DUTY_CYCLE);
+        end
+    end
+
+    cont_bcd UUT (
+        .somar(somar),
+        .decrem(decrem),
+        .clk(clk),
+        .reset(reset),
+        .unid(unid),
+        .cent(cent),
+        .dez(dez),
+        .milhar(milhar));
+
+    integer TX_FILE = 0;
+    integer TX_ERROR = 0;
+    
+    initial begin    // Annotation process for clock clk
+        #0;
+        ANNOTATE_unid;
+        ANNOTATE_cent;
+        ANNOTATE_dez;
+        ANNOTATE_milhar;
+        #OFFSET;
+        forever begin
+            #115;
+            ANNOTATE_unid;
+            ANNOTATE_cent;
+            ANNOTATE_dez;
+            ANNOTATE_milhar;
+            #85;
+        end
+    end
+
+    initial begin  // Open the annotations file...
+        TX_FILE = $fopen("C:\\Users\\Monica\\Desktop\\Final\\Circuito_Estacionamento\\Circuito_estacionamento_isl\\Contador_bcd_teste.ano");
+        #1.00002e+007 // Final time:  1.00002e+007 ns
+        $display("Success! Annotation Simulation Complete.");
+        $fdisplay(TX_FILE, "Total[%d]", TX_ERROR);
+        $fclose(TX_FILE);
+        $finish;
+    end
+
+    initial begin
+    end
+
+    task ANNOTATE_unid;
+        #0 begin
+            $fdisplay(TX_FILE, "Annotate[%d,unid,%b]", $time, unid);
+            $fflush(TX_FILE);
+            TX_ERROR = TX_ERROR + 1;
+        end
+    endtask
+
+    task ANNOTATE_cent;
+        #0 begin
+            $fdisplay(TX_FILE, "Annotate[%d,cent,%b]", $time, cent);
+            $fflush(TX_FILE);
+            TX_ERROR = TX_ERROR + 1;
+        end
+    endtask
+
+    task ANNOTATE_dez;
+        #0 begin
+            $fdisplay(TX_FILE, "Annotate[%d,dez,%b]", $time, dez);
+            $fflush(TX_FILE);
+            TX_ERROR = TX_ERROR + 1;
+        end
+    endtask
+
+    task ANNOTATE_milhar;
+        #0 begin
+            $fdisplay(TX_FILE, "Annotate[%d,milhar,%b]", $time, milhar);
+            $fflush(TX_FILE);
+            TX_ERROR = TX_ERROR + 1;
+        end
+    endtask
+
+endmodule
+

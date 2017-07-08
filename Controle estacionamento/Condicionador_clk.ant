@@ -1,0 +1,79 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 1995-2003 Xilinx, Inc.
+// All Right Reserved.
+////////////////////////////////////////////////////////////////////////////////
+//   ____  ____ 
+//  /   /\/   / 
+// /___/  \  /    Vendor: Xilinx 
+// \   \   \/     Version : 8.2i
+//  \   \         Application : ISE
+//  /   /         Filename : Condicionador_clk.ant
+// /___/   /\     Timestamp : Wed Dec 07 14:18:19 2011
+// \   \  /  \ 
+//  \___\/\___\ 
+//
+//Command: 
+//Design Name: Condicionador_clk
+//Device: Xilinx
+//
+`timescale 1ns/1ps
+
+module Condicionador_clk;
+    reg clk = 1'b0;
+    wire max_tick;
+
+    parameter PERIOD = 200;
+    parameter real DUTY_CYCLE = 0.5;
+    parameter OFFSET = 0;
+
+    initial    // Clock process for clk
+    begin
+        #OFFSET;
+        forever
+        begin
+            clk = 1'b0;
+            #(PERIOD-(PERIOD*DUTY_CYCLE)) clk = 1'b1;
+            #(PERIOD*DUTY_CYCLE);
+        end
+    end
+
+    contador17bits UUT (
+        .clk(clk),
+        .max_tick(max_tick));
+
+    integer TX_FILE = 0;
+    integer TX_ERROR = 0;
+    
+    initial begin    // Annotation process for clock clk
+        #0;
+        ANNOTATE_max_tick;
+        #OFFSET;
+        forever begin
+            #115;
+            ANNOTATE_max_tick;
+            #85;
+        end
+    end
+
+    initial begin  // Open the annotations file...
+        TX_FILE = $fopen("C:\\Users\\Monica\\Desktop\\Final\\Circuito_Estacionamento\\Circuito_estacionamento_isl\\Condicionador_clk.ano");
+        #10200 // Final time:  10200 ns
+        $display("Success! Annotation Simulation Complete.");
+        $fdisplay(TX_FILE, "Total[%d]", TX_ERROR);
+        $fclose(TX_FILE);
+        $finish;
+    end
+
+    initial begin
+    end
+
+    task ANNOTATE_max_tick;
+        #0 begin
+            $fdisplay(TX_FILE, "Annotate[%d,max_tick,%b]", $time, max_tick);
+            $fflush(TX_FILE);
+            TX_ERROR = TX_ERROR + 1;
+        end
+    endtask
+
+endmodule
+

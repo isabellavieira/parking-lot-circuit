@@ -1,0 +1,3 @@
+MODULE Condicionador_clk
+SUBMODULE contador17bits
+INSTANCE UUT

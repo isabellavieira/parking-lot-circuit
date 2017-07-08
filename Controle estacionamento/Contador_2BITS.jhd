@@ -1,0 +1,3 @@
+MODULE Contador_2BITS
+SUBMODULE contador2bits
+INSTANCE UUT

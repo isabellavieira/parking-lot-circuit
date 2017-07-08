@@ -1,0 +1,23 @@
+ command line:
+   C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl\Condicionador_clk_tbxr.exe
+     -intstyle  ise
+     -tclbatch  genExpectedResults.cmd
+
+Wed Dec 07 14:17:41 2011
+
+Total Line Count = 71
+
+ Elaboration time 0 sec.
+
+ Estimate current memory usage 46.9688 Meg. 
+
+ Total signals 11
+ Total nets 10
+ Total signal drivers 5
+ Total blocks 4
+ Total primitive blocks 3
+ Total processes 12
+isim batch on 
+run all 
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.

@@ -1,0 +1,3 @@
+MODULE Decodificador
+SUBMODULE Decoder_basic_2x4
+INSTANCE UUT

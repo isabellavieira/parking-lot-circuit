@@ -1,0 +1,60 @@
+V3 41
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Multiplexador.ant 2011/12/07.13:51:09 I.31
+MO work/Multiplexador \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Multiplexador.ant \
+      MI mux_4x5
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Decodificador.ant 2011/12/07.13:53:58 I.31
+MO work/Decodificador \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Decodificador.ant \
+      MI Decoder_basic_2x4
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/contador2bits.v 2011/12/07.10:56:26 I.31
+MO work/contador2bits \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/contador2bits.v
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Maquina_de_estados.v 2011/12/07.10:18:23 I.31
+MO work/Maquina_de_estados \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Maquina_de_estados.v
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Condicionador_clk.ant 2011/12/07.14:17:34 I.31
+MO work/Condicionador_clk \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Condicionador_clk.ant \
+      MI contador17bits
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/cont_bcd.v 2011/12/07.13:09:43 I.31
+MO work/cont_bcd \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/cont_bcd.v
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Maquina_de_Estados.ant 2011/12/07.11:18:16 I.31
+MO work/Maquina_de_Estados \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Maquina_de_Estados.ant \
+      MI Maquina_de_estados
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Contador_2BITS.ant 2011/12/07.14:12:05 I.31
+MO work/Contador_2BITS \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Contador_2BITS.ant \
+      MI contador2bits
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/verilog1parte.v 2011/12/07.10:45:22 I.31
+MO work/Decoder_BCD_7seg \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/verilog1parte.v
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Contador_BCD.ant 2011/12/07.13:14:50 I.31
+MO work/Contador_BCD \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Contador_BCD.ant \
+      MI cont_bcd
+FL $XILINX/verilog/src/glbl.v 2006/05/17.16:09:08 I.31
+MO work/glbl            FL $XILINX/verilog/src/glbl.v
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Teste.ant 2011/12/07.13:15:53 I.31
+MO work/Teste \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Teste.ant \
+      MI cont_bcd
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/mux_4x5.v 2011/12/07.13:47:10 I.31
+MO work/mux_4x5 \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/mux_4x5.v
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/contador.v 2011/12/07.14:17:27 I.31
+MO work/contador17bits \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/contador.v
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Decoder_BCD.ant 2011/12/07.14:07:38 I.31
+MO work/Decoder_BCD \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Decoder_BCD.ant \
+      MI Decoder_BCD_7seg
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Decoder_basic_2x4.v 2011/12/07.10:42:24 I.31
+MO work/Decoder_basic_2x4 \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/Decoder_basic_2x4.v
+FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/testbench_fsm.ant 2011/12/07.11:13:04 I.31
+MO work/testbench_fsm \
+      FL C:/Users/Monica/Desktop/Final/Circuito_Estacionamento/Circuito_estacionamento_isl/testbench_fsm.ant \
+      MI Maquina_de_estados

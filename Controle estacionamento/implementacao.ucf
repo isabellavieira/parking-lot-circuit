@@ -1,0 +1,36 @@
+# Concetando a saida do 'Decodificador BCD' aos leds dos displays.
+NET "SBCD[0]" LOC = "L18";
+NET "SBCD[1]" LOC = "F18";
+NET "SBCD[2]" LOC = "D17";
+NET "SBCD[3]" LOC = "D16";
+NET "SBCD[4]" LOC = "G14";
+NET "SBCD[5]" LOC = "J17";
+NET "SBCD[6]" LOC = "H14";
+
+# Conectando a saida do 'Decodicador 2x4' aos habilitadores dos displays.
+NET "AN[0]" LOC = "F15";
+NET "AN[1]" LOC = "C18";
+NET "AN[2]" LOC = "H17";
+NET "AN[3]" LOC = "F17";
+
+# Conectando os 'DPs' ao led 'DP' dos displays.
+NET "DP" LOC = "C17";
+
+# Conectando a habilitacao do 'Decodedificador 2x4' a uma chave.
+NET "H" LOC = "K18";
+
+# Conectando o controle 'A' a uma chave.
+NET "A" LOC = "H18";
+
+# Conectando o controle 'B' a uma chave.
+NET "B" LOC = "G18";
+
+#Conectando o CLK ao gerador de clock da placa.
+NET "CLK" LOC = "B8";
+
+# Conectando o 'Reset' a um push-button.
+NET "RESET" LOC = "H13";
+
+
+# Teste - 
+#NET "decre" LOC = "D18";

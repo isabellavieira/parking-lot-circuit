@@ -1,0 +1,17 @@
+MO contador17bits NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/contador.v vlg74/contador17bits.bin 1323274655
+MO mux_4x5 NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/mux_4x5.v vlg0A/mux__4x5.bin 1323273071
+MO Maquina_de_Estados NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/Maquina_de_Estados.ant vlg46/_maquina__de___estados.bin 1323263896
+MO Contador_BCD NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/Contador_BCD.ant vlg6E/_contador___b_c_d.bin 1323270891
+MO Decoder_BCD_7seg NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/verilog1parte.v vlg17/_decoder___b_c_d__7seg.bin 1323274060
+MO Decodificador NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/Decodificador.ant vlg68/_decodificador.bin 1323273240
+MO Contador_2BITS NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/Contador_2BITS.ant vlg25/_contador__2_b_i_t_s.bin 1323274326
+MO Multiplexador NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/Multiplexador.ant vlg12/_multiplexador.bin 1323273071
+MO contador2bits NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/contador2bits.v vlg22/contador2bits.bin 1323274214
+MO Decoder_basic_2x4 NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/Decoder_basic_2x4.v vlg48/_decoder__basic__2x4.bin 1323273239
+MO Condicionador_clk NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/Condicionador_clk.ant vlg35/_condicionador__clk.bin 1323274656
+MO testbench_fsm NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/testbench_fsm.ant vlg31/testbench__fsm.bin 1323263587
+MO glbl NULL C:/Xilinx/verilog/src/glbl.v vlg2D/glbl.bin 1323125522
+MO Teste NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/Teste.ant vlg49/_teste.bin 1323270954
+MO Maquina_de_estados NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/Maquina_de_estados.v vlg66/_maquina__de__estados.bin 1323263585
+MO cont_bcd NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/cont_bcd.v vlg10/cont__bcd.bin 1323270590
+MO Decoder_BCD NULL C:\Users\Monica\Desktop\Final\Circuito_Estacionamento\Circuito_estacionamento_isl/Decoder_BCD.ant vlg2A/_decoder___b_c_d.bin 1323274061

@@ -1,0 +1,3 @@
+verilog work "contador2bits.v"
+verilog work "Contador_2BITS.ant"
+verilog work "C:/Xilinx/verilog/src/glbl.v"

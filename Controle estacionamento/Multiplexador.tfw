@@ -1,0 +1,123 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 1995-2003 Xilinx, Inc.
+// All Right Reserved.
+////////////////////////////////////////////////////////////////////////////////
+//   ____  ____ 
+//  /   /\/   / 
+// /___/  \  /    Vendor: Xilinx 
+// \   \   \/     Version : 8.2i
+//  \   \         Application : ISE
+//  /   /         Filename : Multiplexador.tfw
+// /___/   /\     Timestamp : Wed Dec 07 13:51:24 2011
+// \   \  /  \ 
+//  \___\/\___\ 
+//
+//Command: 
+//Design Name: Multiplexador
+//Device: Xilinx
+//
+`timescale 1ns/1ps
+
+module Multiplexador;
+    reg [3:0] num0 = 4'b1111;
+    reg [3:0] num1 = 4'b1000;
+    reg [3:0] num2 = 4'b0100;
+    reg [3:0] num3 = 4'b0010;
+    reg [3:0] point = 4'b0000;
+    reg Sel1 = 1'b0;
+    reg Sel2 = 1'b0;
+    wire [3:0] S;
+    wire DP;
+
+
+    mux_4x5 UUT (
+        .num0(num0),
+        .num1(num1),
+        .num2(num2),
+        .num3(num3),
+        .point(point),
+        .Sel1(Sel1),
+        .Sel2(Sel2),
+        .S(S),
+        .DP(DP));
+
+    integer TX_FILE = 0;
+    integer TX_ERROR = 0;
+    
+    initial begin  // Open the results file...
+        TX_FILE = $fopen("results.txt");
+        #10000 // Final time:  10000 ns
+        if (TX_ERROR == 0) begin
+            $display("No errors or warnings.");
+            $fdisplay(TX_FILE, "No errors or warnings.");
+        end else begin
+            $display("%d errors found in simulation.", TX_ERROR);
+            $fdisplay(TX_FILE, "%d errors found in simulation.", TX_ERROR);
+        end
+        $fclose(TX_FILE);
+        $stop;
+    end
+
+    initial begin
+        // -------------  Current Time:  500ns
+        #500;
+        Sel2 = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  550ns
+        #50;
+        CHECK_S(4'b1000);
+        // -------------------------------------
+        // -------------  Current Time:  900ns
+        #350;
+        Sel1 = 1'b1;
+        Sel2 = 1'b0;
+        // -------------------------------------
+        // -------------  Current Time:  950ns
+        #50;
+        CHECK_S(4'b0100);
+        // -------------------------------------
+        // -------------  Current Time:  1400ns
+        #450;
+        Sel2 = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  1450ns
+        #50;
+        CHECK_S(4'b0010);
+        // -------------------------------------
+        // -------------  Current Time:  2100ns
+        #650;
+        Sel1 = 1'b0;
+        Sel2 = 1'b0;
+        // -------------------------------------
+        // -------------  Current Time:  2150ns
+        #50;
+        CHECK_S(4'b1111);
+    end
+
+    task CHECK_S;
+        input [3:0] NEXT_S;
+
+        #0 begin
+            if (NEXT_S !== S) begin
+                $display("Error at time=%dns S=%b, expected=%b", $time, S, NEXT_S);
+                $fdisplay(TX_FILE, "Error at time=%dns S=%b, expected=%b", $time, S, NEXT_S);
+                $fflush(TX_FILE);
+                TX_ERROR = TX_ERROR + 1;
+            end
+        end
+    endtask
+    task CHECK_DP;
+        input NEXT_DP;
+
+        #0 begin
+            if (NEXT_DP !== DP) begin
+                $display("Error at time=%dns DP=%b, expected=%b", $time, DP, NEXT_DP);
+                $fdisplay(TX_FILE, "Error at time=%dns DP=%b, expected=%b", $time, DP, NEXT_DP);
+                $fflush(TX_FILE);
+                TX_ERROR = TX_ERROR + 1;
+            end
+        end
+    endtask
+
+endmodule
+

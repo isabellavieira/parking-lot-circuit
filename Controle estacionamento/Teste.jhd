@@ -1,0 +1,3 @@
+MODULE Teste
+SUBMODULE cont_bcd
+INSTANCE UUT

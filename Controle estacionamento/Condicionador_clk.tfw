@@ -1,0 +1,154 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 1995-2003 Xilinx, Inc.
+// All Right Reserved.
+////////////////////////////////////////////////////////////////////////////////
+//   ____  ____ 
+//  /   /\/   / 
+// /___/  \  /    Vendor: Xilinx 
+// \   \   \/     Version : 8.2i
+//  \   \         Application : ISE
+//  /   /         Filename : Condicionador_clk.tfw
+// /___/   /\     Timestamp : Wed Dec 07 14:18:19 2011
+// \   \  /  \ 
+//  \___\/\___\ 
+//
+//Command: 
+//Design Name: Condicionador_clk
+//Device: Xilinx
+//
+`timescale 1ns/1ps
+
+module Condicionador_clk;
+    reg clk = 1'b0;
+    wire max_tick;
+
+    parameter PERIOD = 200;
+    parameter real DUTY_CYCLE = 0.5;
+    parameter OFFSET = 0;
+
+    initial    // Clock process for clk
+    begin
+        #OFFSET;
+        forever
+        begin
+            clk = 1'b0;
+            #(PERIOD-(PERIOD*DUTY_CYCLE)) clk = 1'b1;
+            #(PERIOD*DUTY_CYCLE);
+        end
+    end
+
+    contador17bits UUT (
+        .clk(clk),
+        .max_tick(max_tick));
+
+    integer TX_FILE = 0;
+    integer TX_ERROR = 0;
+    
+    initial begin  // Open the results file...
+        TX_FILE = $fopen("results.txt");
+        #10200 // Final time:  10200 ns
+        if (TX_ERROR == 0) begin
+            $display("No errors or warnings.");
+            $fdisplay(TX_FILE, "No errors or warnings.");
+        end else begin
+            $display("%d errors found in simulation.", TX_ERROR);
+            $fdisplay(TX_FILE, "%d errors found in simulation.", TX_ERROR);
+        end
+        $fclose(TX_FILE);
+        $stop;
+    end
+
+    initial begin
+        // -------------  Current Time:  915ns
+        #915;
+        CHECK_max_tick(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  1115ns
+        #200;
+        CHECK_max_tick(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  1915ns
+        #800;
+        CHECK_max_tick(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  2115ns
+        #200;
+        CHECK_max_tick(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  2915ns
+        #800;
+        CHECK_max_tick(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  3115ns
+        #200;
+        CHECK_max_tick(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  3915ns
+        #800;
+        CHECK_max_tick(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  4115ns
+        #200;
+        CHECK_max_tick(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  4915ns
+        #800;
+        CHECK_max_tick(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  5115ns
+        #200;
+        CHECK_max_tick(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  5915ns
+        #800;
+        CHECK_max_tick(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  6115ns
+        #200;
+        CHECK_max_tick(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  6915ns
+        #800;
+        CHECK_max_tick(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  7115ns
+        #200;
+        CHECK_max_tick(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  7915ns
+        #800;
+        CHECK_max_tick(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  8115ns
+        #200;
+        CHECK_max_tick(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  8915ns
+        #800;
+        CHECK_max_tick(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  9115ns
+        #200;
+        CHECK_max_tick(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  9915ns
+        #800;
+        CHECK_max_tick(1'b1);
+        // -------------------------------------
+    end
+
+    task CHECK_max_tick;
+        input NEXT_max_tick;
+
+        #0 begin
+            if (NEXT_max_tick !== max_tick) begin
+                $display("Error at time=%dns max_tick=%b, expected=%b", $time, max_tick, NEXT_max_tick);
+                $fdisplay(TX_FILE, "Error at time=%dns max_tick=%b, expected=%b", $time, max_tick, NEXT_max_tick);
+                $fflush(TX_FILE);
+                TX_ERROR = TX_ERROR + 1;
+            end
+        end
+    endtask
+
+endmodule
+

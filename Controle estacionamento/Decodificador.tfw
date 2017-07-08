@@ -1,0 +1,130 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 1995-2003 Xilinx, Inc.
+// All Right Reserved.
+////////////////////////////////////////////////////////////////////////////////
+//   ____  ____ 
+//  /   /\/   / 
+// /___/  \  /    Vendor: Xilinx 
+// \   \   \/     Version : 8.2i
+//  \   \         Application : ISE
+//  /   /         Filename : Decodificador.tfw
+// /___/   /\     Timestamp : Wed Dec 07 13:54:18 2011
+// \   \  /  \ 
+//  \___\/\___\ 
+//
+//Command: 
+//Design Name: Decodificador
+//Device: Xilinx
+//
+`timescale 1ns/1ps
+
+module Decodificador;
+    reg H = 1'b0;
+    reg Sel1 = 1'b0;
+    reg Sel2 = 1'b0;
+    wire [3:0] AN;
+
+
+    Decoder_basic_2x4 UUT (
+        .H(H),
+        .Sel1(Sel1),
+        .Sel2(Sel2),
+        .AN(AN));
+
+    integer TX_FILE = 0;
+    integer TX_ERROR = 0;
+    
+    initial begin  // Open the results file...
+        TX_FILE = $fopen("results.txt");
+        #10000 // Final time:  10000 ns
+        if (TX_ERROR == 0) begin
+            $display("No errors or warnings.");
+            $fdisplay(TX_FILE, "No errors or warnings.");
+        end else begin
+            $display("%d errors found in simulation.", TX_ERROR);
+            $fdisplay(TX_FILE, "%d errors found in simulation.", TX_ERROR);
+        end
+        $fclose(TX_FILE);
+        $stop;
+    end
+
+    initial begin
+        // -------------  Current Time:  700ns
+        #700;
+        H = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  750ns
+        #50;
+        CHECK_AN(4'b0111);
+        // -------------------------------------
+        // -------------  Current Time:  1100ns
+        #350;
+        Sel2 = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  1150ns
+        #50;
+        CHECK_AN(4'b1011);
+        // -------------------------------------
+        // -------------  Current Time:  1500ns
+        #350;
+        Sel1 = 1'b1;
+        Sel2 = 1'b0;
+        // -------------------------------------
+        // -------------  Current Time:  1550ns
+        #50;
+        CHECK_AN(4'b1101);
+        // -------------------------------------
+        // -------------  Current Time:  2000ns
+        #450;
+        Sel2 = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  2050ns
+        #50;
+        CHECK_AN(4'b1110);
+        // -------------------------------------
+        // -------------  Current Time:  2500ns
+        #450;
+        Sel1 = 1'b0;
+        Sel2 = 1'b0;
+        // -------------------------------------
+        // -------------  Current Time:  2550ns
+        #50;
+        CHECK_AN(4'b0111);
+        // -------------------------------------
+        // -------------  Current Time:  3000ns
+        #450;
+        H = 1'b0;
+        // -------------------------------------
+        // -------------  Current Time:  3050ns
+        #50;
+        CHECK_AN(4'b1111);
+        // -------------------------------------
+        // -------------  Current Time:  3500ns
+        #450;
+        Sel2 = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  3600ns
+        #100;
+        Sel1 = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  4100ns
+        #500;
+        Sel1 = 1'b0;
+        Sel2 = 1'b0;
+    end
+
+    task CHECK_AN;
+        input [3:0] NEXT_AN;
+
+        #0 begin
+            if (NEXT_AN !== AN) begin
+                $display("Error at time=%dns AN=%b, expected=%b", $time, AN, NEXT_AN);
+                $fdisplay(TX_FILE, "Error at time=%dns AN=%b, expected=%b", $time, AN, NEXT_AN);
+                $fflush(TX_FILE);
+                TX_ERROR = TX_ERROR + 1;
+            end
+        end
+    endtask
+
+endmodule
+

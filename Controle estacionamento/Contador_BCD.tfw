@@ -1,0 +1,194 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 1995-2003 Xilinx, Inc.
+// All Right Reserved.
+////////////////////////////////////////////////////////////////////////////////
+//   ____  ____ 
+//  /   /\/   / 
+// /___/  \  /    Vendor: Xilinx 
+// \   \   \/     Version : 8.2i
+//  \   \         Application : ISE
+//  /   /         Filename : Contador_BCD.tfw
+// /___/   /\     Timestamp : Wed Dec 07 13:15:19 2011
+// \   \  /  \ 
+//  \___\/\___\ 
+//
+//Command: 
+//Design Name: Contador_BCD
+//Device: Xilinx
+//
+`timescale 1ns/1ps
+
+module Contador_BCD;
+    reg somar = 1'b0;
+    reg decrem = 1'b0;
+    reg clk = 1'b0;
+    reg reset = 1'b0;
+    wire [3:0] unid;
+    wire [3:0] cent;
+    wire [3:0] dez;
+    wire [3:0] milhar;
+
+    parameter PERIOD = 200;
+    parameter real DUTY_CYCLE = 0.5;
+    parameter OFFSET = 0;
+
+    initial    // Clock process for clk
+    begin
+        #OFFSET;
+        forever
+        begin
+            clk = 1'b0;
+            #(PERIOD-(PERIOD*DUTY_CYCLE)) clk = 1'b1;
+            #(PERIOD*DUTY_CYCLE);
+        end
+    end
+
+    cont_bcd UUT (
+        .somar(somar),
+        .decrem(decrem),
+        .clk(clk),
+        .reset(reset),
+        .unid(unid),
+        .cent(cent),
+        .dez(dez),
+        .milhar(milhar));
+
+    integer TX_FILE = 0;
+    integer TX_ERROR = 0;
+    
+    initial begin  // Open the results file...
+        TX_FILE = $fopen("results.txt");
+        #10200 // Final time:  10200 ns
+        if (TX_ERROR == 0) begin
+            $display("No errors or warnings.");
+            $fdisplay(TX_FILE, "No errors or warnings.");
+        end else begin
+            $display("%d errors found in simulation.", TX_ERROR);
+            $fdisplay(TX_FILE, "%d errors found in simulation.", TX_ERROR);
+        end
+        $fclose(TX_FILE);
+        $stop;
+    end
+
+    initial begin
+        // -------------  Current Time:  485ns
+        #485;
+        somar = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  515ns
+        #30;
+        CHECK_unid(4'b0001);
+        // -------------------------------------
+        // -------------  Current Time:  715ns
+        #200;
+        CHECK_unid(4'b0010);
+        // -------------------------------------
+        // -------------  Current Time:  915ns
+        #200;
+        CHECK_unid(4'b0011);
+        // -------------------------------------
+        // -------------  Current Time:  1115ns
+        #200;
+        CHECK_unid(4'b0100);
+        // -------------------------------------
+        // -------------  Current Time:  1315ns
+        #200;
+        CHECK_unid(4'b0101);
+        // -------------------------------------
+        // -------------  Current Time:  1515ns
+        #200;
+        CHECK_unid(4'b0110);
+        // -------------------------------------
+        // -------------  Current Time:  1685ns
+        #170;
+        decrem = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  1715ns
+        #30;
+        CHECK_unid(4'b0101);
+        // -------------------------------------
+        // -------------  Current Time:  1915ns
+        #200;
+        CHECK_unid(4'b0100);
+        // -------------------------------------
+        // -------------  Current Time:  2115ns
+        #200;
+        CHECK_unid(4'b0011);
+        // -------------------------------------
+        // -------------  Current Time:  2315ns
+        #200;
+        CHECK_unid(4'b0010);
+        // -------------------------------------
+        // -------------  Current Time:  2485ns
+        #170;
+        somar = 1'b0;
+        // -------------------------------------
+        // -------------  Current Time:  2885ns
+        #400;
+        decrem = 1'b0;
+        // -------------------------------------
+        // -------------  Current Time:  4885ns
+        #2000;
+        reset = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  4915ns
+        #30;
+        CHECK_unid(4'b0000);
+        // -------------------------------------
+        // -------------  Current Time:  5485ns
+        #570;
+        reset = 1'b0;
+        // -------------------------------------
+    end
+
+    task CHECK_unid;
+        input [3:0] NEXT_unid;
+
+        #0 begin
+            if (NEXT_unid !== unid) begin
+                $display("Error at time=%dns unid=%b, expected=%b", $time, unid, NEXT_unid);
+                $fdisplay(TX_FILE, "Error at time=%dns unid=%b, expected=%b", $time, unid, NEXT_unid);
+                $fflush(TX_FILE);
+                TX_ERROR = TX_ERROR + 1;
+            end
+        end
+    endtask
+    task CHECK_cent;
+        input [3:0] NEXT_cent;
+
+        #0 begin
+            if (NEXT_cent !== cent) begin
+                $display("Error at time=%dns cent=%b, expected=%b", $time, cent, NEXT_cent);
+                $fdisplay(TX_FILE, "Error at time=%dns cent=%b, expected=%b", $time, cent, NEXT_cent);
+                $fflush(TX_FILE);
+                TX_ERROR = TX_ERROR + 1;
+            end
+        end
+    endtask
+    task CHECK_dez;
+        input [3:0] NEXT_dez;
+
+        #0 begin
+            if (NEXT_dez !== dez) begin
+                $display("Error at time=%dns dez=%b, expected=%b", $time, dez, NEXT_dez);
+                $fdisplay(TX_FILE, "Error at time=%dns dez=%b, expected=%b", $time, dez, NEXT_dez);
+                $fflush(TX_FILE);
+                TX_ERROR = TX_ERROR + 1;
+            end
+        end
+    endtask
+    task CHECK_milhar;
+        input [3:0] NEXT_milhar;
+
+        #0 begin
+            if (NEXT_milhar !== milhar) begin
+                $display("Error at time=%dns milhar=%b, expected=%b", $time, milhar, NEXT_milhar);
+                $fdisplay(TX_FILE, "Error at time=%dns milhar=%b, expected=%b", $time, milhar, NEXT_milhar);
+                $fflush(TX_FILE);
+                TX_ERROR = TX_ERROR + 1;
+            end
+        end
+    endtask
+
+endmodule
+

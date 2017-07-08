@@ -1,0 +1,569 @@
+Release 8.2.03i - xst I.34
+Copyright (c) 1995-2006 Xilinx, Inc.  All rights reserved.
+--> 
+Parameter TMPDIR set to ./xst/projnav.tmp
+CPU : 0.00 / 0.04 s | Elapsed : 0.00 / 0.00 s
+ 
+--> 
+Parameter xsthdpdir set to ./xst
+CPU : 0.00 / 0.04 s | Elapsed : 0.00 / 0.00 s
+ 
+--> 
+Reading design: principal.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) Design Hierarchy Analysis
+  4) HDL Analysis
+  5) HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Advanced HDL Synthesis
+     6.1) Advanced HDL Synthesis Report
+  7) Low Level Synthesis
+  8) Partition Report
+  9) Final Report
+     9.1) Device utilization summary
+     9.2) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "principal.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "principal"
+Output Format                      : NGC
+Target Device                      : xc3s1200e-4-fg320
+
+---- Source Options
+Top Module Name                    : principal
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+FSM Style                          : lut
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : YES
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+ROM Style                          : Auto
+Mux Extraction                     : YES
+Resource Sharing                   : YES
+Multiplier Style                   : auto
+Automatic Register Balancing       : No
+
+---- Target Options
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 500
+Add Generic Clock Buffer(BUFG)     : 8
+Register Duplication               : YES
+Slice Packing                      : YES
+Pack IO Registers into IOBs        : auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Keep Hierarchy                     : NO
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Write Timing Constraints           : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : maintain
+Slice Utilization Ratio            : 100
+Slice Utilization Ratio Delta      : 5
+
+---- Other Options
+lso                                : principal.lso
+Read Cores                         : YES
+cross_clock_analysis               : NO
+verilog2001                        : YES
+safe_implementation                : No
+Optimize Instantiated Primitives   : NO
+use_clock_enable                   : Yes
+use_sync_set                       : Yes
+use_sync_reset                     : Yes
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling verilog file "verilog1parte.v" in library work
+Compiling verilog file "mux_4x5.v" in library work
+Module <Decoder_BCD_7seg> compiled
+Compiling verilog file "contador2bits.v" in library work
+Module <mux_4x5> compiled
+Compiling verilog file "contador.v" in library work
+Module <contador2bits> compiled
+Compiling verilog file "cont_bcd.v" in library work
+Module <contador17bits> compiled
+Compiling verilog file "Maquina_de_estados.v" in library work
+Module <cont_bcd> compiled
+Compiling verilog file "Decoder_basic_2x4.v" in library work
+Module <Maquina_de_estados> compiled
+Compiling verilog file "principal.v" in library work
+Module <Decoder_basic_2x4> compiled
+Module <principal> compiled
+No errors in compilation
+Analysis of file <"principal.prj"> succeeded.
+ 
+
+=========================================================================
+*                     Design Hierarchy Analysis                         *
+=========================================================================
+Analyzing hierarchy for module <principal> in library <work>.
+
+Analyzing hierarchy for module <Maquina_de_estados> in library <work> with parameters.
+	s8 = "1000"
+	s3 = "0011"
+	s7 = "0111"
+	s5 = "0101"
+	s4 = "0100"
+	s1 = "0001"
+	s0 = "0000"
+	s6 = "0110"
+	s2 = "0010"
+
+Analyzing hierarchy for module <cont_bcd> in library <work>.
+
+Analyzing hierarchy for module <mux_4x5> in library <work>.
+
+Analyzing hierarchy for module <Decoder_basic_2x4> in library <work>.
+
+Analyzing hierarchy for module <Decoder_BCD_7seg> in library <work>.
+
+Analyzing hierarchy for module <contador2bits> in library <work>.
+
+Analyzing hierarchy for module <contador17bits> in library <work>.
+
+Building hierarchy successfully finished.
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing top module <principal>.
+Module <principal> is correct for synthesis.
+ 
+Analyzing module <Maquina_de_estados> in library <work>.
+	s0 = 4'b0000
+	s1 = 4'b0001
+	s2 = 4'b0010
+	s3 = 4'b0011
+	s4 = 4'b0100
+	s5 = 4'b0101
+	s6 = 4'b0110
+	s7 = 4'b0111
+	s8 = 4'b1000
+Module <Maquina_de_estados> is correct for synthesis.
+ 
+Analyzing module <cont_bcd> in library <work>.
+Module <cont_bcd> is correct for synthesis.
+ 
+Analyzing module <mux_4x5> in library <work>.
+Module <mux_4x5> is correct for synthesis.
+ 
+Analyzing module <Decoder_basic_2x4> in library <work>.
+Module <Decoder_basic_2x4> is correct for synthesis.
+ 
+Analyzing module <Decoder_BCD_7seg> in library <work>.
+Module <Decoder_BCD_7seg> is correct for synthesis.
+ 
+Analyzing module <contador2bits> in library <work>.
+Module <contador2bits> is correct for synthesis.
+ 
+Analyzing module <contador17bits> in library <work>.
+Module <contador17bits> is correct for synthesis.
+ 
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Performing bidirectional port resolution...
+
+Synthesizing Unit <Maquina_de_estados>.
+    Related source file is "Maquina_de_estados.v".
+    Found finite state machine <FSM_0> for signal <estado_atual>.
+    -----------------------------------------------------------------------
+    | States             | 9                                              |
+    | Transitions        | 30                                             |
+    | Inputs             | 4                                              |
+    | Outputs            | 2                                              |
+    | Clock              | CLK (rising_edge)                              |
+    | Reset              | reset (positive)                               |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | 0000                                           |
+    | Power Up State     | 0000                                           |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Summary:
+	inferred   1 Finite State Machine(s).
+Unit <Maquina_de_estados> synthesized.
+
+
+Synthesizing Unit <cont_bcd>.
+    Related source file is "cont_bcd.v".
+    Found 4-bit register for signal <dez>.
+    Found 4-bit register for signal <unid>.
+    Found 4-bit register for signal <cent>.
+    Found 4-bit updown counter for signal <milhar>.
+    Found 4-bit 8-to-1 multiplexer for signal <$mux0000>.
+    Found 4-bit 8-to-1 multiplexer for signal <$mux0001>.
+    Found 4-bit 8-to-1 multiplexer for signal <$mux0002>.
+    Found 4-bit addsub for signal <$share0000>.
+    Found 4-bit addsub for signal <$share0001>.
+    Found 4-bit addsub for signal <$share0002>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred  12 D-type flip-flop(s).
+	inferred   3 Adder/Subtractor(s).
+	inferred  12 Multiplexer(s).
+Unit <cont_bcd> synthesized.
+
+
+Synthesizing Unit <mux_4x5>.
+    Related source file is "mux_4x5.v".
+    Found 1-bit 4-to-1 multiplexer for signal <DP>.
+    Found 4-bit 4-to-1 multiplexer for signal <S>.
+    Summary:
+	inferred   5 Multiplexer(s).
+Unit <mux_4x5> synthesized.
+
+
+Synthesizing Unit <Decoder_basic_2x4>.
+    Related source file is "Decoder_basic_2x4.v".
+Unit <Decoder_basic_2x4> synthesized.
+
+
+Synthesizing Unit <Decoder_BCD_7seg>.
+    Related source file is "verilog1parte.v".
+    Found 1-bit xor2 for signal <$xor0014> created at line 25.
+Unit <Decoder_BCD_7seg> synthesized.
+
+
+Synthesizing Unit <contador2bits>.
+    Related source file is "contador2bits.v".
+    Found 1-bit register for signal <Qa>.
+    Found 1-bit register for signal <Qb>.
+    Summary:
+	inferred   2 D-type flip-flop(s).
+Unit <contador2bits> synthesized.
+
+
+Synthesizing Unit <contador17bits>.
+    Related source file is "contador.v".
+    Found 1-bit register for signal <max_tick>.
+    Found 17-bit up counter for signal <cont>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
+Unit <contador17bits> synthesized.
+
+
+Synthesizing Unit <principal>.
+    Related source file is "principal.v".
+Unit <principal> synthesized.
+
+INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# Adders/Subtractors                                   : 3
+ 4-bit addsub                                          : 3
+# Counters                                             : 2
+ 17-bit up counter                                     : 1
+ 4-bit updown counter                                  : 1
+# Registers                                            : 6
+ 1-bit register                                        : 3
+ 4-bit register                                        : 3
+# Multiplexers                                         : 5
+ 1-bit 4-to-1 multiplexer                              : 1
+ 4-bit 4-to-1 multiplexer                              : 1
+ 4-bit 8-to-1 multiplexer                              : 3
+# Xors                                                 : 1
+ 1-bit xor2                                            : 1
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+Analyzing FSM <FSM_0> for best encoding.
+Optimizing FSM <maquina/estado_atual> on signal <estado_atual[1:4]> with sequential encoding.
+-------------------
+ State | Encoding
+-------------------
+ 0000  | 0000
+ 0001  | 0010
+ 0010  | 0011
+ 0011  | 0100
+ 0100  | 0001
+ 0101  | 0110
+ 0110  | 0111
+ 0111  | 0101
+ 1000  | 1000
+-------------------
+Loading device for application Rf_Device from file '3s1200e.nph' in environment /opt/Xilinx.
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# FSMs                                                 : 1
+# Adders/Subtractors                                   : 3
+ 4-bit addsub                                          : 3
+# Counters                                             : 2
+ 17-bit up counter                                     : 1
+ 4-bit updown counter                                  : 1
+# Registers                                            : 36
+ Flip-Flops                                            : 36
+# Multiplexers                                         : 5
+ 1-bit 4-to-1 multiplexer                              : 1
+ 4-bit 4-to-1 multiplexer                              : 1
+ 4-bit 8-to-1 multiplexer                              : 3
+# Xors                                                 : 1
+ 1-bit xor2                                            : 1
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+
+Optimizing unit <principal> ...
+
+Optimizing unit <cont_bcd> ...
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block principal, actual ratio is 0.
+
+Final Macro Processing ...
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 40
+ Flip-Flops                                            : 40
+
+=========================================================================
+
+=========================================================================
+*                          Partition Report                             *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : principal.ngr
+Top Level Output File Name         : principal
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : NO
+
+Design Statistics
+# IOs                              : 24
+
+Cell Usage :
+# BELS                             : 170
+#      GND                         : 1
+#      INV                         : 3
+#      LUT1                        : 17
+#      LUT2                        : 2
+#      LUT3                        : 27
+#      LUT3_D                      : 1
+#      LUT3_L                      : 3
+#      LUT4                        : 50
+#      LUT4_D                      : 9
+#      LUT4_L                      : 8
+#      MUXCY                       : 21
+#      MUXF5                       : 11
+#      VCC                         : 1
+#      XORCY                       : 16
+# FlipFlops/Latches                : 40
+#      FDC                         : 4
+#      FDCE                        : 16
+#      FDE                         : 2
+#      FDR                         : 17
+#      FDS                         : 1
+# Clock Buffers                    : 1
+#      BUFGP                       : 1
+# IO Buffers                       : 23
+#      IBUF                        : 8
+#      OBUF                        : 15
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 3s1200efg320-4 
+
+ Number of Slices:                      63  out of   8672     0%  
+ Number of Slice Flip Flops:            40  out of  17344     0%  
+ Number of 4 input LUTs:               120  out of  17344     0%  
+ Number of IOs:                         24
+ Number of bonded IOBs:                 24  out of    250     9%  
+ Number of GCLKs:                        1  out of     24     4%  
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+CLK                                | BUFGP                  | 40    |
+-----------------------------------+------------------------+-------+
+
+Asynchronous Control Signals Information:
+----------------------------------------
+-----------------------------------+------------------------+-------+
+Control Signal                     | Buffer(FF name)        | Load  |
+-----------------------------------+------------------------+-------+
+RESET                              | IBUF                   | 20    |
+-----------------------------------+------------------------+-------+
+
+Timing Summary:
+---------------
+Speed Grade: -4
+
+   Minimum period: 8.115ns (Maximum Frequency: 123.229MHz)
+   Minimum input arrival time before clock: 5.756ns
+   Maximum output required time after clock: 9.046ns
+   Maximum combinational path delay: 7.196ns
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'CLK'
+  Clock period: 8.115ns (frequency: 123.229MHz)
+  Total number of paths / destination ports: 1318 / 75
+-------------------------------------------------------------------------
+Delay:               8.115ns (Levels of Logic = 4)
+  Source:            BCD/dez_3 (FF)
+  Destination:       BCD/dez_2 (FF)
+  Source Clock:      CLK rising
+  Destination Clock: CLK rising
+
+  Data Path: BCD/dez_3 to BCD/dez_2
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE:C->Q             6   0.591   1.178  BCD/dez_3 (BCD/dez_3)
+     LUT4_D:I0->O          8   0.704   1.162  BCD/_cmp_eq00011 (BCD/_cmp_eq0001)
+     LUT3:I1->O           11   0.704   1.179  BCD/_not0007111 (BCD/N10)
+     LUT3_D:I2->O          2   0.704   0.881  BCD/_mux0000<0>11 (BCD/N01)
+     LUT4:I3->O            1   0.704   0.000  BCD/_mux0002<1> (BCD/_mux0002<1>)
+     FDCE:D                    0.308          BCD/dez_2
+    ----------------------------------------
+    Total                      8.115ns (3.715ns logic, 4.400ns route)
+                                       (45.8% logic, 54.2% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'CLK'
+  Total number of paths / destination ports: 13 / 4
+-------------------------------------------------------------------------
+Offset:              5.756ns (Levels of Logic = 4)
+  Source:            B (PAD)
+  Destination:       maquina/estado_atual_FFd4 (FF)
+  Destination Clock: CLK rising
+
+  Data Path: B to maquina/estado_atual_FFd4
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             6   1.218   1.178  B_IBUF (B_IBUF)
+     LUT3:I0->O            1   0.704   0.836  maquina/estado_atual_FFd4-In34 (maquina/estado_atual_FFd4-In_map163)
+     LUT4_L:I2->LO         1   0.704   0.104  maquina/estado_atual_FFd4-In39 (maquina/estado_atual_FFd4-In_map164)
+     LUT4:I3->O            1   0.704   0.000  maquina/estado_atual_FFd4-In110 (maquina/estado_atual_FFd4-In)
+     FDC:D                     0.308          maquina/estado_atual_FFd4
+    ----------------------------------------
+    Total                      5.756ns (3.638ns logic, 2.118ns route)
+                                       (63.2% logic, 36.8% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'CLK'
+  Total number of paths / destination ports: 213 / 15
+-------------------------------------------------------------------------
+Offset:              9.046ns (Levels of Logic = 4)
+  Source:            CONTADOR_2_BITS/Qb (FF)
+  Destination:       SBCD<6> (PAD)
+  Source Clock:      CLK rising
+
+  Data Path: CONTADOR_2_BITS/Qb to SBCD<6>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDE:C->Q             16   0.591   1.412  CONTADOR_2_BITS/Qb (CONTADOR_2_BITS/Qb)
+     LUT3:I0->O            1   0.704   0.000  w17 (N9)
+     MUXF5:I0->O           7   0.321   1.241  MUX/Mmux_S_f5_2 (Smux_sai<3>)
+     LUT4:I0->O            1   0.704   0.801  DECODER_BCD/_or00041 (SBCD_2_OBUF)
+     OBUF:I->O                 3.272          SBCD_2_OBUF (SBCD<2>)
+    ----------------------------------------
+    Total                      9.046ns (5.592ns logic, 3.454ns route)
+                                       (61.8% logic, 38.2% route)
+
+=========================================================================
+Timing constraint: Default path analysis
+  Total number of paths / destination ports: 8 / 5
+-------------------------------------------------------------------------
+Delay:               7.196ns (Levels of Logic = 4)
+  Source:            point<0> (PAD)
+  Destination:       DP (PAD)
+
+  Data Path: point<0> to DP
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             1   1.218   0.880  point_0_IBUF (point_0_IBUF)
+     LUT3:I1->O            1   0.704   0.000  w11 (N31)
+     MUXF5:I0->O           1   0.321   0.801  MUX/Mmux_DP_f5 (DP_OBUF)
+     OBUF:I->O                 3.272          DP_OBUF (DP)
+    ----------------------------------------
+    Total                      7.196ns (5.515ns logic, 1.681ns route)
+                                       (76.6% logic, 23.4% route)
+
+=========================================================================
+CPU : 4.66 / 4.71 s | Elapsed : 7.00 / 7.00 s
+ 
+--> 
+
+
+Total memory usage is 131920 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :    0 (   0 filtered)
+Number of infos    :    1 (   0 filtered)
+

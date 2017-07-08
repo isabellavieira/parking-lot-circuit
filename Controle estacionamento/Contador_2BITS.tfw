@@ -1,0 +1,178 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 1995-2003 Xilinx, Inc.
+// All Right Reserved.
+////////////////////////////////////////////////////////////////////////////////
+//   ____  ____ 
+//  /   /\/   / 
+// /___/  \  /    Vendor: Xilinx 
+// \   \   \/     Version : 8.2i
+//  \   \         Application : ISE
+//  /   /         Filename : Contador_2BITS.tfw
+// /___/   /\     Timestamp : Wed Dec 07 14:12:18 2011
+// \   \  /  \ 
+//  \___\/\___\ 
+//
+//Command: 
+//Design Name: Contador_2BITS
+//Device: Xilinx
+//
+`timescale 1ns/1ps
+
+module Contador_2BITS;
+    reg c = 1'b0;
+    reg clck = 1'b0;
+    wire Qa;
+    wire Qb;
+
+    parameter PERIOD = 200;
+    parameter real DUTY_CYCLE = 0.5;
+    parameter OFFSET = 0;
+
+    initial    // Clock process for clck
+    begin
+        #OFFSET;
+        forever
+        begin
+            clck = 1'b0;
+            #(PERIOD-(PERIOD*DUTY_CYCLE)) clck = 1'b1;
+            #(PERIOD*DUTY_CYCLE);
+        end
+    end
+
+    contador2bits UUT (
+        .c(c),
+        .clck(clck),
+        .Qa(Qa),
+        .Qb(Qb));
+
+    integer TX_FILE = 0;
+    integer TX_ERROR = 0;
+    
+    initial begin  // Open the results file...
+        TX_FILE = $fopen("results.txt");
+        #10200 // Final time:  10200 ns
+        if (TX_ERROR == 0) begin
+            $display("No errors or warnings.");
+            $fdisplay(TX_FILE, "No errors or warnings.");
+        end else begin
+            $display("%d errors found in simulation.", TX_ERROR);
+            $fdisplay(TX_FILE, "%d errors found in simulation.", TX_ERROR);
+        end
+        $fclose(TX_FILE);
+        $stop;
+    end
+
+    initial begin
+        // -------------  Current Time:  285ns
+        #285;
+        c = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  315ns
+        #30;
+        CHECK_Qb(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  515ns
+        #200;
+        CHECK_Qa(1'b1);
+        CHECK_Qb(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  715ns
+        #200;
+        CHECK_Qb(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  915ns
+        #200;
+        CHECK_Qa(1'b0);
+        CHECK_Qb(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  1115ns
+        #200;
+        CHECK_Qb(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  1315ns
+        #200;
+        CHECK_Qa(1'b1);
+        CHECK_Qb(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  1515ns
+        #200;
+        CHECK_Qb(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  1715ns
+        #200;
+        CHECK_Qa(1'b0);
+        CHECK_Qb(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  1915ns
+        #200;
+        CHECK_Qb(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  2115ns
+        #200;
+        CHECK_Qa(1'b1);
+        CHECK_Qb(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  2315ns
+        #200;
+        CHECK_Qb(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  2515ns
+        #200;
+        CHECK_Qa(1'b0);
+        CHECK_Qb(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  2715ns
+        #200;
+        CHECK_Qb(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  2915ns
+        #200;
+        CHECK_Qa(1'b1);
+        CHECK_Qb(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  3115ns
+        #200;
+        CHECK_Qb(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  3315ns
+        #200;
+        CHECK_Qa(1'b0);
+        CHECK_Qb(1'b0);
+        // -------------------------------------
+        // -------------  Current Time:  3515ns
+        #200;
+        CHECK_Qb(1'b1);
+        // -------------------------------------
+        // -------------  Current Time:  3685ns
+        #170;
+        c = 1'b0;
+        // -------------------------------------
+    end
+
+    task CHECK_Qa;
+        input NEXT_Qa;
+
+        #0 begin
+            if (NEXT_Qa !== Qa) begin
+                $display("Error at time=%dns Qa=%b, expected=%b", $time, Qa, NEXT_Qa);
+                $fdisplay(TX_FILE, "Error at time=%dns Qa=%b, expected=%b", $time, Qa, NEXT_Qa);
+                $fflush(TX_FILE);
+                TX_ERROR = TX_ERROR + 1;
+            end
+        end
+    endtask
+    task CHECK_Qb;
+        input NEXT_Qb;
+
+        #0 begin
+            if (NEXT_Qb !== Qb) begin
+                $display("Error at time=%dns Qb=%b, expected=%b", $time, Qb, NEXT_Qb);
+                $fdisplay(TX_FILE, "Error at time=%dns Qb=%b, expected=%b", $time, Qb, NEXT_Qb);
+                $fflush(TX_FILE);
+                TX_ERROR = TX_ERROR + 1;
+            end
+        end
+    endtask
+
+endmodule
+

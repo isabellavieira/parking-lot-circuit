@@ -1,0 +1,8 @@
+verilog work "verilog1parte.v"
+verilog work "mux_4x5.v"
+verilog work "contador2bits.v"
+verilog work "contador.v"
+verilog work "cont_bcd.v"
+verilog work "Maquina_de_estados.v"
+verilog work "Decoder_basic_2x4.v"
+verilog work "principal.v"

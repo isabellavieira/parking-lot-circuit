@@ -1,0 +1,163 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 1995-2003 Xilinx, Inc.
+// All Right Reserved.
+////////////////////////////////////////////////////////////////////////////////
+//   ____  ____ 
+//  /   /\/   / 
+// /___/  \  /    Vendor: Xilinx 
+// \   \   \/     Version : 8.2i
+//  \   \         Application : ISE
+//  /   /         Filename : Decoder_BCD.tfw
+// /___/   /\     Timestamp : Wed Dec 07 14:08:10 2011
+// \   \  /  \ 
+//  \___\/\___\ 
+//
+//Command: 
+//Design Name: Decoder_BCD
+//Device: Xilinx
+//
+`timescale 1ns/1ps
+
+module Decoder_BCD;
+    reg [3:0] E = 4'b0000;
+    wire [6:0] S;
+
+
+    Decoder_BCD_7seg UUT (
+        .E(E),
+        .S(S));
+
+    integer TX_FILE = 0;
+    integer TX_ERROR = 0;
+    
+    initial begin  // Open the results file...
+        TX_FILE = $fopen("results.txt");
+        #10000 // Final time:  10000 ns
+        if (TX_ERROR == 0) begin
+            $display("No errors or warnings.");
+            $fdisplay(TX_FILE, "No errors or warnings.");
+        end else begin
+            $display("%d errors found in simulation.", TX_ERROR);
+            $fdisplay(TX_FILE, "%d errors found in simulation.", TX_ERROR);
+        end
+        $fclose(TX_FILE);
+        $stop;
+    end
+
+    initial begin
+        // -------------  Current Time:  500ns
+        #500;
+        E = 4'b0001;
+        // -------------------------------------
+        // -------------  Current Time:  550ns
+        #50;
+        CHECK_S(7'b1111001);
+        // -------------------------------------
+        // -------------  Current Time:  800ns
+        #250;
+        E = 4'b0010;
+        // -------------------------------------
+        // -------------  Current Time:  850ns
+        #50;
+        CHECK_S(7'b0100100);
+        // -------------------------------------
+        // -------------  Current Time:  1100ns
+        #250;
+        E = 4'b0011;
+        // -------------------------------------
+        // -------------  Current Time:  1150ns
+        #50;
+        CHECK_S(7'b0110000);
+        // -------------------------------------
+        // -------------  Current Time:  1400ns
+        #250;
+        E = 4'b0100;
+        // -------------------------------------
+        // -------------  Current Time:  1450ns
+        #50;
+        CHECK_S(7'b0011001);
+        // -------------------------------------
+        // -------------  Current Time:  1700ns
+        #250;
+        E = 4'b0101;
+        // -------------------------------------
+        // -------------  Current Time:  1750ns
+        #50;
+        CHECK_S(7'b0010010);
+        // -------------------------------------
+        // -------------  Current Time:  1900ns
+        #150;
+        E = 4'b0110;
+        // -------------------------------------
+        // -------------  Current Time:  1950ns
+        #50;
+        CHECK_S(7'b0000010);
+        // -------------------------------------
+        // -------------  Current Time:  2100ns
+        #150;
+        E = 4'b0111;
+        // -------------------------------------
+        // -------------  Current Time:  2150ns
+        #50;
+        CHECK_S(7'b1111000);
+        // -------------------------------------
+        // -------------  Current Time:  2400ns
+        #250;
+        E = 4'b1000;
+        // -------------------------------------
+        // -------------  Current Time:  2450ns
+        #50;
+        CHECK_S(7'b0000000);
+        // -------------------------------------
+        // -------------  Current Time:  2800ns
+        #350;
+        E = 4'b1001;
+        // -------------------------------------
+        // -------------  Current Time:  2850ns
+        #50;
+        CHECK_S(7'b0010000);
+        // -------------------------------------
+        // -------------  Current Time:  3000ns
+        #150;
+        E = 4'b1010;
+        // -------------------------------------
+        // -------------  Current Time:  3050ns
+        #50;
+        CHECK_S(7'b0000110);
+        // -------------------------------------
+        // -------------  Current Time:  3200ns
+        #150;
+        E = 4'b1011;
+        // -------------------------------------
+        // -------------  Current Time:  3600ns
+        #400;
+        E = 4'b1100;
+        // -------------------------------------
+        // -------------  Current Time:  4200ns
+        #600;
+        E = 4'b1101;
+        // -------------------------------------
+        // -------------  Current Time:  4600ns
+        #400;
+        E = 4'b1110;
+        // -------------------------------------
+        // -------------  Current Time:  5000ns
+        #400;
+        E = 4'b1111;
+    end
+
+    task CHECK_S;
+        input [6:0] NEXT_S;
+
+        #0 begin
+            if (NEXT_S !== S) begin
+                $display("Error at time=%dns S=%b, expected=%b", $time, S, NEXT_S);
+                $fdisplay(TX_FILE, "Error at time=%dns S=%b, expected=%b", $time, S, NEXT_S);
+                $fflush(TX_FILE);
+                TX_ERROR = TX_ERROR + 1;
+            end
+        end
+    endtask
+
+endmodule
+

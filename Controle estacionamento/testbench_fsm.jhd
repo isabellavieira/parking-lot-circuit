@@ -1,0 +1,3 @@
+MODULE testbench_fsm
+SUBMODULE Maquina_de_estados
+INSTANCE UUT

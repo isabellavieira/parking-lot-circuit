@@ -1,0 +1,137 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 1995-2003 Xilinx, Inc.
+// All Right Reserved.
+////////////////////////////////////////////////////////////////////////////////
+//   ____  ____ 
+//  /   /\/   / 
+// /___/  \  /    Vendor: Xilinx 
+// \   \   \/     Version : 8.2i
+//  \   \         Application : ISE
+//  /   /         Filename : Maquina_de_Estados.ant
+// /___/   /\     Timestamp : Wed Dec 07 11:18:43 2011
+// \   \  /  \ 
+//  \___\/\___\ 
+//
+//Command: 
+//Design Name: Maquina_de_Estados
+//Device: Xilinx
+//
+`timescale 1ns/1ps
+
+module Maquina_de_Estados;
+    reg A = 1'b0;
+    reg B = 1'b0;
+    reg CLK = 1'b0;
+    reg reset = 1'b0;
+    wire contar;
+    wire up_down;
+
+    parameter PERIOD = 200;
+    parameter real DUTY_CYCLE = 0.5;
+    parameter OFFSET = 0;
+
+    initial    // Clock process for CLK
+    begin
+        #OFFSET;
+        forever
+        begin
+            CLK = 1'b0;
+            #(PERIOD-(PERIOD*DUTY_CYCLE)) CLK = 1'b1;
+            #(PERIOD*DUTY_CYCLE);
+        end
+    end
+
+    Maquina_de_estados UUT (
+        .A(A),
+        .B(B),
+        .CLK(CLK),
+        .reset(reset),
+        .contar(contar),
+        .up_down(up_down));
+
+    integer TX_FILE = 0;
+    integer TX_ERROR = 0;
+    
+    initial begin    // Annotation process for clock CLK
+        #0;
+        ANNOTATE_contar;
+        ANNOTATE_up_down;
+        #OFFSET;
+        forever begin
+            #115;
+            ANNOTATE_contar;
+            ANNOTATE_up_down;
+            #85;
+        end
+    end
+
+    initial begin  // Open the annotations file...
+        TX_FILE = $fopen("C:\\Users\\Monica\\Desktop\\Final\\Circuito_Estacionamento\\Circuito_estacionamento_isl\\Maquina_de_Estados.ano");
+        #10200 // Final time:  10200 ns
+        $display("Success! Annotation Simulation Complete.");
+        $fdisplay(TX_FILE, "Total[%d]", TX_ERROR);
+        $fclose(TX_FILE);
+        $finish;
+    end
+
+    initial begin
+        // -------------  Current Time:  285ns
+        #285;
+        A = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  485ns
+        #200;
+        B = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  685ns
+        #200;
+        A = 1'b0;
+        // -------------------------------------
+        // -------------  Current Time:  1085ns
+        #400;
+        B = 1'b0;
+        // -------------------------------------
+        // -------------  Current Time:  1685ns
+        #600;
+        B = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  1885ns
+        #200;
+        A = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  2085ns
+        #200;
+        B = 1'b0;
+        // -------------------------------------
+        // -------------  Current Time:  2285ns
+        #200;
+        A = 1'b0;
+        // -------------------------------------
+        // -------------  Current Time:  2885ns
+        #600;
+        A = 1'b1;
+        // -------------------------------------
+        // -------------  Current Time:  3285ns
+        #400;
+        A = 1'b0;
+        // -------------------------------------
+    end
+
+    task ANNOTATE_contar;
+        #0 begin
+            $fdisplay(TX_FILE, "Annotate[%d,contar,%b]", $time, contar);
+            $fflush(TX_FILE);
+            TX_ERROR = TX_ERROR + 1;
+        end
+    endtask
+
+    task ANNOTATE_up_down;
+        #0 begin
+            $fdisplay(TX_FILE, "Annotate[%d,up_down,%b]", $time, up_down);
+            $fflush(TX_FILE);
+            TX_ERROR = TX_ERROR + 1;
+        end
+    endtask
+
+endmodule
+
